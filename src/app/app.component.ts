@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { map, Observable, take } from 'rxjs';
 
 import { createSession } from './app.actions';
+import { selectSession } from './app.selectors';
+import { AppState } from './models/app-state.interface';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +13,19 @@ import { createSession } from './app.actions';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store) { }
+  accessToken$: Observable<string> = this.store.pipe(select(selectSession), map(session => session.accessToken));
+
+  constructor(private store: Store<AppState>, private router: Router) { }
 
   ngOnInit(): void {
-    this.store.dispatch(createSession());
+    this.accessToken$.pipe(take(1)).subscribe((token: string) => {
+      if (!token) {
+        this.store.dispatch(createSession());
+        this.router.navigate(['login']);
+      } else {
+        this.router.navigate(['dashboard']);
+      }
+    });
+
   }
 }
