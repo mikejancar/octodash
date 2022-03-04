@@ -12,12 +12,14 @@ import { LoginComponent } from './components/login/login.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { OauthComponent } from './components/oauth/oauth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    OauthComponent
   ],
   imports: [
     BrowserModule,
