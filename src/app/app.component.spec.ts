@@ -1,7 +1,6 @@
 import { fakeAsync, flush } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { createSession } from './app.actions';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -9,27 +8,23 @@ describe('AppComponent', () => {
   const mockStore: any = {
     pipe: () => mockToken
   };
-  const mockRouter: any = {}
+  let mockRouter: any;
 
   let component: AppComponent;
 
   beforeEach(() => {
-    mockStore.dispatch = jest.fn();
-    mockRouter.navigate = jest.fn();
+    mockRouter = {
+      navigate: jest.fn()
+    };
     component = new AppComponent(mockStore, mockRouter);
   });
 
-  // TODO: Update tests to reflect new conditional logic
   describe('on initialization', () => {
-    test('when no token is present, it should create a session and route to login', fakeAsync(() => {
+    test('when no token is present, it should do nothing', fakeAsync(() => {
       component.ngOnInit();
       flush();
 
-      expect(mockStore.dispatch.mock.calls.length).toBe(1);
-      expect(mockStore.dispatch.mock.calls[0][0]).toEqual(createSession());
-
-      expect(mockRouter.navigate.mock.calls.length).toBe(1);
-      expect(mockRouter.navigate.mock.calls[0][0]).toEqual(['login']);
+      expect(mockRouter.navigate.mock.calls.length).toBe(0);
     }));
 
     test('when a token is present, it should route to the dashboard', fakeAsync(() => {

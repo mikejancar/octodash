@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { OauthComponent } from './components/oauth/oauth.component';
 
 const routes: Routes = [
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'oauth', component: OauthComponent },

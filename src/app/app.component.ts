@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
+import { filter, map, Observable, take } from 'rxjs';
 
-import { createSession } from './app.actions';
 import { selectSession } from './app.selectors';
 import { AppState } from './models/app-state.interface';
 
@@ -18,14 +17,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>, private router: Router) { }
 
   ngOnInit(): void {
-    this.accessToken$.pipe(take(1)).subscribe((token: string) => {
-      if (!token) {
-        this.store.dispatch(createSession());
-        this.router.navigate(['login']);
-      } else {
-        this.router.navigate(['dashboard']);
-      }
-    });
-
+    this.accessToken$.pipe(filter(token => !!token), take(1)).subscribe(() => this.router.navigate(['dashboard']));
   }
 }

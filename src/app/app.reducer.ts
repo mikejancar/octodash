@@ -4,10 +4,11 @@ import { setSession } from './app.actions';
 
 export const initialState = {
   githubClientId: '',
-  githubClientSecret: ''
+  githubClientSecret: '',
+  accessToken: ''
 };
 
 export const appReducer = createReducer(
   initialState,
-  on(setSession, (state, session) => ({ githubClientId: session.githubClientId, githubClientSecret: session.githubClientSecret }))
+  on(setSession, (state, session) => ({ ...state, githubClientId: session.githubClientId, githubClientSecret: session.githubClientSecret }))
 )
