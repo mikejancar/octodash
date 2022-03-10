@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { setSession } from './app.actions';
+import { setGithubToken, setSession } from './app.actions';
 
 export const initialState = {
   githubClientId: '',
@@ -10,5 +10,6 @@ export const initialState = {
 
 export const appReducer = createReducer(
   initialState,
-  on(setSession, (state, session) => ({ ...state, githubClientId: session.githubClientId, githubClientSecret: session.githubClientSecret }))
+  on(setSession, (state, action) => ({ ...state, githubClientId: action.githubClientId, githubClientSecret: action.githubClientSecret })),
+  on(setGithubToken, (state, action) => ({ ...state, accessToken: action.accessToken }))
 )

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import { acquireGithubToken } from '../../app.actions';
+import { AppState } from '../../models/app-state.interface';
 
 @Component({
   selector: 'app-oauth',
@@ -9,10 +12,10 @@ import { tap } from 'rxjs';
 })
 export class OauthComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.route.queryParams.pipe(tap(params => console.log(params)));
+    this.route.queryParams.subscribe(params => this.store.dispatch(acquireGithubToken({ sessionCode: params['code'] })));
   }
 
 }

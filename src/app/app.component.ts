@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, map, Observable, take } from 'rxjs';
 
+import { createSession } from './app.actions';
 import { selectSession } from './app.selectors';
 import { AppState } from './models/app-state.interface';
 
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>, private router: Router) { }
 
   ngOnInit(): void {
+    this.store.dispatch(createSession());
     this.accessToken$.pipe(filter(token => !!token), take(1)).subscribe(() => this.router.navigate(['dashboard']));
   }
 }
