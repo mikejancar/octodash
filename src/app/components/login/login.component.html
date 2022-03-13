@@ -3,7 +3,7 @@
   <div class="text-lg text-center mb-8">In order to access your GitHub account, we need your authorization first.</div>
   <a
     class="p-4 bg-green-400 rounded-lg"
-    [href]="'https://github.com/login/oauth/authorize?scope=user:email&client_id=' + clientId"
+    [href]="'https://github.com/login/oauth/authorize?scope=repo,user&client_id=' + clientId"
   >
     Authorize
   </a>
