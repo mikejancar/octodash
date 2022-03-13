@@ -3,22 +3,31 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, map, Observable, take } from 'rxjs';
 
-import { createSession } from './app.actions';
+import { createSession, restoreGithubToken } from './app.actions';
 import { selectSession } from './app.selectors';
 import { AppState } from './models/app-state.interface';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  accessToken$: Observable<string> = this.store.pipe(select(selectSession), map(session => session.accessToken));
+  accessToken$: Observable<string> = this.store.pipe(
+    select(selectSession),
+    map((session) => session.accessToken)
+  );
 
-  constructor(private store: Store<AppState>, private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
+    this.store.dispatch(restoreGithubToken());
     this.store.dispatch(createSession());
-    this.accessToken$.pipe(filter(token => !!token), take(1)).subscribe(() => this.router.navigate(['dashboard']));
+    this.accessToken$
+      .pipe(
+        filter((token) => !!token),
+        take(1)
+      )
+      .subscribe(() => this.router.navigate(['dashboard']));
   }
 }
