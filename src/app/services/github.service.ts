@@ -5,6 +5,7 @@ import { Observable, switchMap, take } from 'rxjs';
 
 import { selectSession } from '../app.selectors';
 import { AppState } from '../models/app-state.interface';
+import { Repo } from '../models/repo.interface';
 import { Session } from '../models/session.interface';
 import { User } from '../models/user.interface';
 
@@ -24,6 +25,16 @@ export class GithubService {
       take(1),
       switchMap((session: Session) =>
         this.http.get<User>(`${this.githubRoot}/user`, { headers: this.apiHeaders(session.accessToken) })
+      )
+    );
+  }
+
+  getRepos(): Observable<Repo[]> {
+    return this.store.pipe(
+      select(selectSession),
+      take(1),
+      switchMap((session: Session) =>
+        this.http.get<Repo[]>(`${this.githubRoot}/user/repos`, { headers: this.apiHeaders(session.accessToken) })
       )
     );
   }

@@ -1,3 +1,1 @@
-<div *ngIf="user$ | async as user">
-  <h2>{{ user.login }}</h2>
-</div>
+<app-repo-table [repos]="repos$ | async"></app-repo-table>

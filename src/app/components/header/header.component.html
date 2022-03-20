@@ -1,0 +1,6 @@
+<div class="flex justify-between items-center mb-4 pb-4 border-b-2">
+  <div class="font-bold">octodash</div>
+  <div *ngIf="user$ | async as user">
+    <img class="inline-block h-6 w-6 rounded-full ring-2 ring-white" [src]="user.avatar_url" alt="user.login" />
+  </div>
+</div>
