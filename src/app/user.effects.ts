@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
 import { GithubService } from './services/github.service';
 import { getUser, setUser } from './user.actions';
@@ -14,7 +14,7 @@ export class UserEffects {
   getUser = createEffect(() =>
     this.actions$.pipe(
       ofType(getUser),
-      mergeMap(() => this.githubService.getUser().pipe(map((user) => setUser({ user }))))
+      switchMap(() => this.githubService.getUser().pipe(map((user) => setUser({ user }))))
     )
   );
 }

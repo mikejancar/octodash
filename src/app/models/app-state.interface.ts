@@ -1,9 +1,9 @@
-import { Repo } from './repo.interface';
+import { GithubState } from './github-state.interface';
 import { Session } from './session.interface';
 import { User } from './user.interface';
 
 export interface AppState {
-  repos: Repo[];
+  github: GithubState;
   session: Session;
   user: User;
 }

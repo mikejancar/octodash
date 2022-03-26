@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { getRepos } from '../../github.actions';
+import { selectRepos } from '../../github.selectors';
 import { AppState } from '../../models/app-state.interface';
 import { Repo } from '../../models/repo.interface';
 import { User } from '../../models/user.interface';
-import { getRepos } from '../../repo.actions';
-import { selectRepos } from '../../repo.selectors';
 import { getUser } from '../../user.actions';
 import { selectUser } from '../../user.selectors';
 

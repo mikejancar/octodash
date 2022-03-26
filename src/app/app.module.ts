@@ -14,12 +14,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { OauthComponent } from './components/oauth/oauth.component';
-import { RepoEffects } from './repo.effects';
-import { repoReducer } from './repo.reducer';
+import { RepoTableComponent } from './components/repo-table/repo-table.component';
+import { GithubEffects } from './github.effects';
+import { githubReducer } from './github.reducer';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
 import { UserEffects } from './user.effects';
 import { userReducer } from './user.reducer';
-import { RepoTableComponent } from './components/repo-table/repo-table.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent, OauthComponent, HeaderComponent, RepoTableComponent],
@@ -27,9 +27,9 @@ import { RepoTableComponent } from './components/repo-table/repo-table.component
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({ repos: repoReducer, session: appReducer, user: userReducer }, {}),
-    EffectsModule.forRoot([AppEffects, RepoEffects, UserEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreModule.forRoot({ github: githubReducer, session: appReducer, user: userReducer }, {}),
+    EffectsModule.forRoot([AppEffects, GithubEffects, UserEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 50, logOnly: environment.production }),
   ],
   providers: [
     { provide: Window, useValue: window },

@@ -1,8 +1,19 @@
 <div>
   <h2>Your Repos</h2>
-  <div class="flex items-center" *ngFor="let repo of repos; let i = index">
-    <span>
-      <a [href]="repo.html_url" target="_blank">{{ repo.name }}</a>
-    </span>
-  </div>
+  <table class="text-sm md:text-base">
+    <thead>
+      <th>Repo</th>
+      <th>Last Pushed</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let repo of repos">
+        <td>{{ repo.name }}</td>
+        <td>{{ repo.pushed_at | date: 'short' }}</td>
+        <td>
+          <img *ngFor="let flow of workflows$(repo.name) | async" [src]="flow.badge_url" [alt]="flow.state" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
