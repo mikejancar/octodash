@@ -20,9 +20,10 @@ import { githubReducer } from './github.reducer';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
 import { UserEffects } from './user.effects';
 import { userReducer } from './user.reducer';
+import { RepoCardComponent } from './components/repo-card/repo-card.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, OauthComponent, HeaderComponent, RepoTableComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, OauthComponent, HeaderComponent, RepoTableComponent, RepoCardComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h2 {
+    @apply text-lg mb-2;
+  }
+}
+
 .gentle-flex {
   display: flex;
   flex-direction: column;

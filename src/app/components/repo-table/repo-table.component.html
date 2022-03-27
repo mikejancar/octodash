@@ -1,7 +1,7 @@
 <div>
   <h2>Your Repos</h2>
-  <table class="text-sm md:text-base">
-    <thead>
+  <table class="hidden md:block">
+    <thead class="text-left">
       <th>Repo</th>
       <th>Last Pushed</th>
       <th>Actions</th>
@@ -16,4 +16,7 @@
       </tr>
     </tbody>
   </table>
+  <div class="md:hidden">
+    <app-repo-card *ngFor="let repo of repos" [repo]="repo"></app-repo-card>
+  </div>
 </div>

@@ -1,0 +1,14 @@
+<div class="text-sm p-2 my-2 border border-solid border-black rounded">
+  <div class="flex justify-between items-center mb-2">
+    <span>{{ repo?.name }}</span>
+    <span class="flex items-center">
+      <span *ngIf="repo?.open_issues" class="mr-1">{{ repo?.open_issues }} issues</span>
+      <img *ngIf="repo?.private" class="h-4" src="../../../assets/icons/private.svg" alt="private" />
+      <img *ngIf="!repo?.private" class="h-4" src="../../../assets/icons/public.svg" alt="public" />
+    </span>
+  </div>
+  <div *ngIf="!repo?.private" class="flex">
+    <!-- TODO: Badges blocked on private repos - find another way to show status -->
+    <img *ngFor="let flow of workflows$ | async" class="mr-1" [src]="flow.badge_url" alt="workflow status" />
+  </div>
+</div>
